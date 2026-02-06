@@ -36,7 +36,7 @@ L’objectif est de reproduire une partie du comportement de l’API originale (
 - PHP >= 8.1
 - Composer
 - SQLite
-- Symfony CLI (optionnel mais recommandé)
+- Symfony CLI
 
 ### Setup du projet
 
@@ -52,7 +52,8 @@ La commande `composer setup` prépare les bases de données de développement et
 ### Lancer l'application
 
 ```composer serve```
-Puis accéder à : `http://127.0.0.1:8000/api/character`
+
+Puis accéder à : `http://127.0.0.1:8000/`
 
 ### Tests
 
