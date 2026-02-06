@@ -40,20 +40,20 @@ L’objectif est de reproduire une partie du comportement de l’API originale (
 
 ### Setup du projet
 
-`composer install`
-`composer setup`
+```composer install```
+```composer setup```
 
 La commande `composer setup` prépare les bases de données de développement et de test (migrations + fixtures) afin de rendre l’API immédiatement utilisable.
 
 ### Lancer l'application
 
-`composer serve`
+```composer serve```
 Puis accéder à : `http://127.0.0.1:8000/api/character`
 
 ### Tests
 
 Les tests utilisent une base SQLite dédiée (`app_test.db`), isolée de l’environnement de développement.
-`composer test`
+```composer test```
 
 Le script :
 -   recrée la base de test
@@ -63,8 +63,8 @@ Le script :
 
 ### Base de données (dev & test)
 
-Reset complet de la base de données de développement : `composer db:reset`
-Reset complet de la base de données de test : `composer db:reset-test` 
+Reset complet de la base de données de développement : ```composer db:reset```
+Reset complet de la base de données de test : ```composer db:reset-test``` 
 
 Cela :
 -   supprime la base SQLite
