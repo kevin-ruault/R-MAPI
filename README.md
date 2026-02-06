@@ -86,7 +86,7 @@ Cela :
 
 
 ## Temps passé
-Temps total estimé : **~6-7 heures**
+Temps total estimé : **~6 heures**
 
 -   Mise en place des differentes tâches : ~30-45min
 -   Setup environnement & Symfony (WSL, Symfony, SQLite) : ~1h
