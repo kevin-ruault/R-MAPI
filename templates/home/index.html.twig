@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rick & Morty API (Symfony){% endblock %}
+
+{% block body %}
+<style>
+  :root{
+    --bg: #0b1020;
+    --card: rgba(255,255,255,.06);
+    --card2: rgba(255,255,255,.08);
+    --text: rgba(255,255,255,.92);
+    --muted: rgba(255,255,255,.70);
+    --border: rgba(255,255,255,.12);
+    --accent: #7c3aed; /* violet */
+    --accent2: #22c55e; /* green */
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body{
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    background:
+      radial-gradient(900px 500px at 15% 10%, rgba(124,58,237,.35), transparent 60%),
+      radial-gradient(900px 500px at 85% 15%, rgba(34,197,94,.25), transparent 55%),
+      linear-gradient(180deg, var(--bg), #070a14);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 56px 20px;
+  }
+
+  .hero{
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.06);
+    color: var(--muted);
+  }
+
+  .title{
+    margin: 14px 0 6px;
+    font-size: 34px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle{
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 70ch;
+  }
+
+  .actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.06);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform .08s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+  .btn.primary{
+    border-color: rgba(124,58,237,.55);
+    background: rgba(124,58,237,.25);
+  }
+  .btn.primary:hover{
+    background: rgba(124,58,237,.34);
+    border-color: rgba(124,58,237,.70);
+  }
+
+  .grid{
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 14px;
+  }
+  @media (max-width: 900px){
+    .grid{ grid-template-columns: 1fr; }
+  }
+
+  .panel{
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 16px;
+    padding: 18px;
+  }
+
+  .panel h2{
+    margin: 0 0 10px;
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .endpoint{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.04);
+    margin-top: 10px;
+  }
+
+  code{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    color: rgba(255,255,255,.88);
+  }
+
+  .pill{
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: rgba(255,255,255,.05);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .pill:hover{ color: var(--text); border-color: rgba(255,255,255,.18); }
+
+  .meta{
+    display: grid;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .meta a{ color: rgba(255,255,255,.86); }
+</style>
+
+<div class="wrap">
+  <section class="hero">
+    <span class="badge">Symfony • Doctrine • SQLite • PHPUnit</span>
+    <h1 class="title">Rick & Morty API</h1>
+    <p class="subtitle">
+      Ré-implémentation partielle de l’API Rick & Morty en Symfony, orientée qualité de code,
+      reproductibilité (fixtures) et tests d’intégration.
+    </p>
+
+    <div class="actions">
+      <a class="btn primary" href="/api/character">Accéder à l’API</a>
+      <a class="btn" href="/api/character?name=rick">Exemple : name=rick</a>
+      <a class="btn" href="https://rickandmortyapi.com/documentation" target="_blank" rel="noopener noreferrer">
+        Documentation officielle
+      </a>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <h2>Endpoints disponibles</h2>
+
+        <div class="endpoint">
+          <div>
+            <div><code>GET /api/character</code></div>
+            <div style="margin-top:6px; color: var(--muted); font-size: 13px;">
+              Pagination (20/page) + filtre <code>name</code>
+            </div>
+          </div>
+          <a class="pill" href="/api/character">Ouvrir</a>
+        </div>
+
+        <div class="endpoint">
+          <div>
+            <div><code>GET /api/character/{id}</code></div>
+            <div style="margin-top:6px; color: var(--muted); font-size: 13px;">
+              Détail d’un personnage (404 si absent)
+            </div>
+          </div>
+          <a class="pill" href="/api/character/1">Ouvrir</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Notes</h2>
+        <div class="meta">
+          <div>• Données générées via fixtures (Faker), inspirées de l’univers Rick & Morty.</div>
+          <div>• Tests : <code>composer test</code> (DB test isolée + fixtures + PHPUnit).</div>
+          <div>• Setup : <code>composer setup</code> (prépare dev + test).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
