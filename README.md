@@ -86,13 +86,14 @@ Cela :
 
 
 ## Temps passé
-Temps total estimé : **~6 heures**
+Temps total estimé : **~6-7 heures**
 
 -   Mise en place des differentes tâches : ~30-45min
 -   Setup environnement & Symfony (WSL, Symfony, SQLite) : ~1h
 -   Modélisation & migrations : ~1h
 -   Endpoints & logique métier : ~1h30
 -   Tests & stabilisation : ~2h
+-   UI : ~20-30min
 
 ## Utilisation de la documentation et des outils
 
