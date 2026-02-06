@@ -40,6 +40,10 @@ L’objectif est de reproduire une partie du comportement de l’API originale (
 
 ### Setup du projet
 
+```git clone https://github.com/kevin-ruault/R-MAPI.git```
+
+```cd R-MAPI```
+
 ```composer install```
 
 ```composer setup```
