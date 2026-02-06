@@ -11,23 +11,27 @@ final class CharacterFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $data = require __DIR__.'/RickAndMorty.php';
+
         $faker = Factory::create('en_US');
         $faker->seed(1234);
 
-        $this->createCharacter($manager, 'Rick Sanchez', 'Alive', 'Human', 'Male');
-        $this->createCharacter($manager, 'Morty Smith', 'Alive', 'Human', 'Male');
-
-        $statuses = ['Alive', 'Dead', 'unknown'];
-        $species = ['Human', 'Alien', 'Robot', 'Mythological Creature', 'Cronenberg'];
-        $genders = ['Female', 'Male', 'Genderless', 'unknown'];
+        $this->createCharacter($manager, 'Rick Sanchez', 'Alive', 'Human', 'Male', 'Earth (C-137)');
+        $this->createCharacter($manager, 'Morty Smith', 'Alive', 'Human', 'Male', 'unknown');
+        $this->createCharacter($manager, 'Summer Smith', 'Alive', 'Human', 'Female', 'Earth (Replacement Dimension)');
 
         for ($i = 0; $i < 60; $i++) {
             $character = new Character();
-            $character->setName($faker->name());
-            $character->setStatus($faker->randomElement($statuses));
-            $character->setSpecies($faker->randomElement($species));
-            $character->setGender($faker->randomElement($genders));
-            $character->setImage($faker->imageUrl(300, 300, 'people', true));
+
+            $name = $faker->boolean(70)
+                ? $faker->randomElement($data['firstNames']).' '.$faker->randomElement($data['lastNames'])
+                : $faker->randomElement($data['nicknames']);
+
+            $character->setName($name);
+            $character->setStatus($faker->randomElement($data['statuses']));
+            $character->setSpecies($faker->randomElement($data['species']));
+            $character->setGender($faker->randomElement($data['genders']));
+            $character->setOrigin($faker->randomElement($data['origins']));
 
             if (method_exists($character, 'setCreatedAt')) {
                 $character->setCreatedAt($faker->dateTimeBetween('-2 years', 'now'));
@@ -44,14 +48,15 @@ final class CharacterFixtures extends Fixture
         string $name,
         ?string $status,
         ?string $species,
-        ?string $gender
+        ?string $gender,
+        ?string $origin,
     ): void {
         $character = new Character();
         $character->setName($name);
         $character->setStatus($status);
         $character->setSpecies($species);
         $character->setGender($gender);
-        $character->setImage(null);
+        $character->setOrigin($origin);
 
         if (method_exists($character, 'setCreatedAt')) {
             $character->setCreatedAt(new \DateTimeImmutable());
@@ -60,4 +65,3 @@ final class CharacterFixtures extends Fixture
         $manager->persist($character);
     }
 }
-

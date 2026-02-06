@@ -29,14 +29,32 @@ final class CharacterController extends AbstractController
                ->setParameter('name', '%'.mb_strtolower($name).'%');
         }
 
-        // count total
+        if ($status = $request->query->get('status')) {
+            $qb->andWhere('LOWER(c.status) LIKE :status')
+               ->setParameter('status', '%'.mb_strtolower($status).'%');
+        }
+
+        if ($species = $request->query->get('species')) {
+            $qb->andWhere('LOWER(c.species) LIKE :species')
+               ->setParameter('species', '%'.mb_strtolower($species).'%');
+        }
+
+        if ($gender = $request->query->get('gender')) {
+            $qb->andWhere('LOWER(c.gender) LIKE :gender')
+               ->setParameter('gender', mb_strtolower($gender));
+        }
+
+        if ($origin = $request->query->get('origin')) {
+            $qb->andWhere('LOWER(c.origin) LIKE :origin')
+               ->setParameter('origin', '%'.mb_strtolower($origin).'%');
+        }
+
         $countQb = clone $qb;
         $total = (int) $countQb->select('COUNT(c.id)')->getQuery()->getSingleScalarResult();
 
         $perPage = 20;
         $pages = $total === 0 ? 0 : (int) ceil($total / $perPage);
 
-        // Si page demandée hors bornes (et qu'il y a des résultats), on renvoie 404 comme la vraie API
         if ($pages > 0 && $page > $pages) {
             return $this->json(['error' => 'There is nothing here'], 404);
         }
@@ -48,7 +66,7 @@ final class CharacterController extends AbstractController
             ->getQuery()
             ->getResult();
 
-        $base = $request->getSchemeAndHttpHost(); // ex http://127.0.0.1:8000
+        $base = $request->getSchemeAndHttpHost();
         $path = '/api/character';
         $queryBase = [];
         if ($name !== '') {
@@ -95,7 +113,7 @@ final class CharacterController extends AbstractController
             'status' => $c->getStatus(),
             'species' => $c->getSpecies(),
             'gender' => $c->getGender(),
-            'image' => $c->getImage(),
+            'origin' => $c->getOrigin(),
         ];
     }
 }

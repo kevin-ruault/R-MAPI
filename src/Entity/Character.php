@@ -26,7 +26,7 @@ class Character
     private ?string $gender = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    private ?string $origin = null;
 
     public function getId(): ?int
     {
@@ -81,14 +81,14 @@ class Character
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getOrigin(): ?string
     {
-        return $this->image;
+        return $this->origin;
     }
 
-    public function setImage(?string $image): static
+    public function setOrigin(?string $origin): static
     {
-        $this->image = $image;
+        $this->origin = $origin;
 
         return $this;
     }
