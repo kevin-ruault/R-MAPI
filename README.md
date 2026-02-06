@@ -41,6 +41,7 @@ L’objectif est de reproduire une partie du comportement de l’API originale (
 ### Setup du projet
 
 ```composer install```
+
 ```composer setup```
 
 La commande `composer setup` prépare les bases de données de développement et de test (migrations + fixtures) afin de rendre l’API immédiatement utilisable.
